@@ -10,12 +10,12 @@ import cl.julio.algorithmsFourthEdition.chapter2.section1.Insertion;
 
 public class Exercise11_Improvements {
 
-    private static final int CUTOFF = 15;
+    private static final int CUTOFF = 100;
     
     @SuppressWarnings({ "rawtypes" })
     public static void main(String[] args) throws Exception {
-        int min = 200;
-        int max = 200;
+        int min = 300;
+        int max = 300;
 
         System.out.println("Generating data...");
         Map<Integer, Comparable[]> arrays = new HashMap<>();
@@ -53,16 +53,14 @@ public class Exercise11_Improvements {
     private static void sort(Comparable[] array, Comparable[] aux, int low, int high) {
         // Improvement 1: Use insertion sort for small subarrays.
         if ((high - low) <= CUTOFF) {
-            System.out.println("Insertion sort");
             Insertion.sort(array);
             return;
         }
-
-        System.out.println("Merge sort");
+        
         int middle = low + (high - low) / 2;
 
-        sort(array, aux, low, middle);
-        sort(array, aux, middle + 1, high);
+        sort(aux, array, low, middle);
+        sort(aux, array, middle + 1, high);
 
         // Improvement 2: Test whether the array is already in order.
         if (!Common.isSorted(array)) {
@@ -72,15 +70,14 @@ public class Exercise11_Improvements {
     
     @SuppressWarnings({ "rawtypes" })
     private static void merge(Comparable[] a, Comparable[] aux, int lo, int mid, int hi) {
-        int left = lo;
-        int right = hi;
-        for (int i = lo; i <= hi; i++) {
-            if (less(aux[left], aux[right])) {
-                a[i] = aux[left++];
-            }
-            else {
-                a[i] = aux[right--];
-            }
+        int i = lo;
+        int j = mid + 1;
+        
+        for (int k = lo; k <= hi; k++) {
+            if      (i > mid)                a[k] = aux[j++];
+            else if (j > hi )                a[k] = aux[i++];
+            else if (less(aux[j], aux[i]))   a[k] = aux[j++];
+            else                             a[k] = aux[i++];
         }
     }
     
