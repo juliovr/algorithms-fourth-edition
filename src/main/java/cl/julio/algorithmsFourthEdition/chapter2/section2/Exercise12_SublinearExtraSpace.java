@@ -1,9 +1,8 @@
 package cl.julio.algorithmsFourthEdition.chapter2.section2;
 
-import static cl.julio.algorithmsFourthEdition.chapter2.Common.less;
+import static cl.julio.algorithmsFourthEdition.Common.less;
 
-import cl.julio.algorithmsFourthEdition.chapter2.Common;
-import cl.julio.algorithmsFourthEdition.chapter2.section1.Selection;
+import cl.julio.algorithmsFourthEdition.Common;
 
 public class Exercise12_SublinearExtraSpace {
 

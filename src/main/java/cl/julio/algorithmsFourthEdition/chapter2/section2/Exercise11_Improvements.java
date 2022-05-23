@@ -1,11 +1,11 @@
 package cl.julio.algorithmsFourthEdition.chapter2.section2;
 
-import static cl.julio.algorithmsFourthEdition.chapter2.Common.less;
+import static cl.julio.algorithmsFourthEdition.Common.less;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import cl.julio.algorithmsFourthEdition.chapter2.Common;
+import cl.julio.algorithmsFourthEdition.Common;
 import cl.julio.algorithmsFourthEdition.chapter2.section1.Insertion;
 
 public class Exercise11_Improvements {

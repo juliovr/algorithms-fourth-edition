@@ -1,6 +1,6 @@
 package cl.julio.algorithmsFourthEdition.chapter2.section5;
 
-import cl.julio.algorithmsFourthEdition.chapter2.Common;
+import cl.julio.algorithmsFourthEdition.Common;
 
 public class Exercise6 {
 

@@ -1,4 +1,4 @@
-package cl.julio.algorithmsFourthEdition.chapter2;
+package cl.julio.algorithmsFourthEdition;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;

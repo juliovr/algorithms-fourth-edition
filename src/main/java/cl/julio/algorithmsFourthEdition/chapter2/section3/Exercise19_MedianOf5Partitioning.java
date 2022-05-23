@@ -1,6 +1,6 @@
 package cl.julio.algorithmsFourthEdition.chapter2.section3;
 
-import cl.julio.algorithmsFourthEdition.chapter2.Common;
+import cl.julio.algorithmsFourthEdition.Common;
 import edu.princeton.cs.algs4.StdRandom;
 
 public class Exercise19_MedianOf5Partitioning {

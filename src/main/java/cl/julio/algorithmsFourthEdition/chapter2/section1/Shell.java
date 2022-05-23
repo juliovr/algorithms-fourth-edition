@@ -1,6 +1,6 @@
 package cl.julio.algorithmsFourthEdition.chapter2.section1;
 
-import cl.julio.algorithmsFourthEdition.chapter2.Common;
+import cl.julio.algorithmsFourthEdition.Common;
 import edu.princeton.cs.algs4.StdDraw;
 
 public class Shell {

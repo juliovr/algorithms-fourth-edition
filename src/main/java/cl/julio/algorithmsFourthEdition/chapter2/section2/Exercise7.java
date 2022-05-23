@@ -3,7 +3,7 @@ package cl.julio.algorithmsFourthEdition.chapter2.section2;
 import java.util.HashMap;
 import java.util.Map;
 
-import cl.julio.algorithmsFourthEdition.chapter2.Common;
+import cl.julio.algorithmsFourthEdition.Common;
 
 public class Exercise7 {
 

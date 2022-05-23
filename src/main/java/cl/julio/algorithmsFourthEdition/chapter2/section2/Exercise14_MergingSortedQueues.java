@@ -1,6 +1,6 @@
 package cl.julio.algorithmsFourthEdition.chapter2.section2;
 
-import cl.julio.algorithmsFourthEdition.chapter2.Common;
+import cl.julio.algorithmsFourthEdition.Common;
 import edu.princeton.cs.algs4.Queue;
 
 public class Exercise14_MergingSortedQueues {

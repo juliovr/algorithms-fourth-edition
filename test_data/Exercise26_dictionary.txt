@@ -1,0 +1,10 @@
+battlefield
+creep
+giant
+heaven
+news
+radical
+shot
+tribute
+uniform
+voyage

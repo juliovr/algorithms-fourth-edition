@@ -1,6 +1,6 @@
 package cl.julio.algorithmsFourthEdition.chapter2.section3;
 
-import cl.julio.algorithmsFourthEdition.chapter2.Common;
+import cl.julio.algorithmsFourthEdition.Common;
 import edu.princeton.cs.algs4.Stack;
 
 public class Exercise20_NonrecursiveQuicksort {
