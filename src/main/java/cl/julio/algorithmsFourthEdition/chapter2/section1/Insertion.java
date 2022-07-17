@@ -135,9 +135,9 @@ public class Insertion {
 	}
 	
 	public static void main(String[] args) {
-//		Comparable[] a = Common.generateRandomData(20);
-//		
-//		Insertion.sortVisualizing(a);
+		Comparable[] a = Common.generateRandomData(20);
+
+		Insertion.sortVisualizing(a);
 //		Insertion.sortWithSentinel(a);
 //		Common.show(a);
 		
