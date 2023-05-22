@@ -52,4 +52,24 @@ public class SeparateChainingHashST<Key, Value> {
         return queue;
     }
 
+    public float chiSquareStatistic() {
+        int n = 0;
+        for (int i = 0; i < m; ++i) {
+            for (Key key: st[i].keys()) {
+                ++n;
+            }
+        }
+
+        float nmRatio = n / m;
+        float secondTerm = 0;
+        for (int i = 0; i < m; ++i) {
+            int size = st[i].size();
+            secondTerm += Math.pow((size - nmRatio), 2);
+        }
+
+        float chiSq = ((float)m / (float)n)*secondTerm;
+
+        return chiSq;
+    }
+
 }
