@@ -24,6 +24,10 @@ public class SeparateChainingHashST<Key, Value> {
         return m;
     }
 
+    public SequentialSearchST<Key, Value> getList(int i) {
+        return st[i];
+    }
+
     private int hash(Key key) {
         return (key.hashCode() & 0x7fffffff) % m;
     }
