@@ -24,6 +24,15 @@ public class SeparateChainingHashST<Key, Value> {
         return m;
     }
 
+    public int size() {
+        int n = 0;
+        for (Key key: keys()) {
+            ++n;
+        }
+
+        return n;
+    }
+
     public SequentialSearchST<Key, Value> getList(int i) {
         return st[i];
     }
@@ -34,6 +43,10 @@ public class SeparateChainingHashST<Key, Value> {
 
     public Value get(Key key) {
         return st[hash(key)].get(key);
+    }
+
+    public boolean contains(Key key) {
+        return get(key) != null;
     }
 
     public void put(Key key, Value value) {
