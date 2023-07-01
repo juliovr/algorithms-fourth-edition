@@ -47,8 +47,6 @@ public class Graph {
     }
 
     public void addEdge(int v, int w) {
-        if (isParallelEdge(v, w)) return;
-
         adj[v].add(w);
         adj[w].add(v);
         E++;

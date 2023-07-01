@@ -77,7 +77,7 @@ public class SeparateChainingHashST<Key, Value> {
             }
         }
 
-        float nmRatio = n / m;
+        float nmRatio = (float)n / (float)m;
         float secondTerm = 0;
         for (int i = 0; i < m; ++i) {
             int size = st[i].size();

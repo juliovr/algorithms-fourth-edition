@@ -15,7 +15,7 @@ public class SymbolGraph {
         In in = new In(stream);
         while (in.hasNextLine()) {
             String[] a = in.readLine().split(separator);
-            for (int i = 0; i < a.length; ++i){
+            for (int i = 0; i < a.length; ++i) {
                 if (!st.contains(a[i])) {
                     st.put(a[i], st.size());
                 }

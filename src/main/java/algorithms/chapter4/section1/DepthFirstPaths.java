@@ -25,20 +25,20 @@ public class DepthFirstPaths {
 //        }
 //    }
 
-    private void dfs(Graph graph, int v) {
+    private void dfs(Graph graph, int s) {
         Stack<Integer> stack = new Stack<>();
-        stack.push(v);
+        stack.push(s);
         while (!stack.isEmpty()) {
-            int vertex = stack.pop();
-            if (marked[vertex]) {
+            int v = stack.pop();
+            if (marked[v]) {
                 continue;
             }
 
-            marked[vertex] = true;
+            marked[v] = true;
             Stack<Integer> adj = new Stack<>();
-            for (int w : graph.adj(vertex)) {
+            for (int w : graph.adj(v)) {
                 if (!marked[w]) {
-                    edgeTo[w] = vertex;
+                    edgeTo[w] = v;
                     adj.push(w);
                 }
             }
