@@ -1,12 +1,12 @@
-package algorithms.chapter4.section1;
+package algorithms.chapter4.section2;
 
 import algorithms.chapter3.section4.SeparateChainingHashST;
 import edu.princeton.cs.algs4.Bag;
 import edu.princeton.cs.algs4.StdDraw;
 
-public class Exercise37 {
+public class Exercise38_EuclideanDigraphs {
 
-    private static class EuclideanGraph {
+    private static class EuclideanDigraph {
 
         private static class Vertex {
             private int id;
@@ -45,7 +45,6 @@ public class Exercise37 {
             }
 
             adj.get(v1.id).add(v2);
-            adj.get(v2.id).add(v1);
             ++nEdges;
         }
 
@@ -67,6 +66,7 @@ public class Exercise37 {
         }
 
         private static final float RADIUS = 0.02f;
+        private static final float ARROW_LENGTH = 0.01f;
 
         public void show() {
             boolean[] showed = new boolean[nVertices];
@@ -138,15 +138,56 @@ public class Exercise37 {
                             y1Pad = -RADIUS;
                         }
 
-                        StdDraw.line(x + x0Pad, y + y0Pad, adjX + x1Pad, adjY + y1Pad);
+                        float startX = x + x0Pad;
+                        float startY = y + y0Pad;
+                        float endX = adjX + x1Pad;
+                        float endY = adjY + y1Pad;
+                        StdDraw.line(startX, startY, endX, endY);
+
+                        if (startX == endX) {
+                            // Vertical line
+                            float vLeftX = endX - ARROW_LENGTH;
+                            float vLeftY = endY - ARROW_LENGTH;
+                            float vMiddleX = endX;
+                            float vMiddleY = endY;
+                            float vRightX = endX + ARROW_LENGTH;
+                            float vRightY = endY - ARROW_LENGTH;
+                            drawTriangle(vLeftX, vLeftY, vMiddleX, vMiddleY, vRightX, vRightY);
+                        } else if (startY == endY) {
+                            // Horizontal line
+                            float vTopX;
+                            float vTopY = endY + ARROW_LENGTH;
+                            float vMiddleX = endX;
+                            float vMiddleY = endY;
+                            float vBottomX;
+                            float vBottomY = endY - ARROW_LENGTH;
+                            if (endX < startX) {
+                                // Point left
+                                vTopX = endX + ARROW_LENGTH;
+                                vBottomX = endX + ARROW_LENGTH;
+                            } else {
+                                // Point right
+                                vTopX = endX - ARROW_LENGTH;
+                                vBottomX = endX - ARROW_LENGTH;
+                            }
+                            drawTriangle(vTopX, vTopY, vMiddleX, vMiddleY, vBottomX, vBottomY);
+                        }
+
+                        // TODO: diagonal arrows
                     }
                 }
             }
 
         }
 
+        private void drawTriangle(double x0, double y0, double x1, double y1, double x2, double y2) {
+            double[] x = new double[] { x0, x1, x2 };
+            double[] y = new double[] { y0, y1, y2 };
+            StdDraw.filledPolygon(x, y);
+        }
+
         public static void main(String[] args) {
-            EuclideanGraph euclideanGraph = new EuclideanGraph();
+            EuclideanDigraph euclideanDigraph = new EuclideanDigraph();
             Vertex vertex0 = new Vertex(0, 6.1f, 1.3f);
             Vertex vertex1 = new Vertex(1, 7.2f, 2.5f);
             Vertex vertex2 = new Vertex(2, 8.4f, 1.3f);
@@ -155,17 +196,17 @@ public class Exercise37 {
             Vertex vertex5 = new Vertex(5, 7.2f, 5.2f);
             Vertex vertex6 = new Vertex(6, 7.2f, 8.4f);
 
-            euclideanGraph.addEdge(vertex0, vertex1);
-            euclideanGraph.addEdge(vertex2, vertex1);
-            euclideanGraph.addEdge(vertex0, vertex2);
-            euclideanGraph.addEdge(vertex3, vertex6);
-            euclideanGraph.addEdge(vertex4, vertex6);
-            euclideanGraph.addEdge(vertex3, vertex4);
-            euclideanGraph.addEdge(vertex1, vertex5);
-            euclideanGraph.addEdge(vertex5, vertex6);
+            euclideanDigraph.addEdge(vertex0, vertex1);
+            euclideanDigraph.addEdge(vertex2, vertex1);
+            euclideanDigraph.addEdge(vertex0, vertex2);
+            euclideanDigraph.addEdge(vertex3, vertex6);
+            euclideanDigraph.addEdge(vertex4, vertex6);
+            euclideanDigraph.addEdge(vertex3, vertex4);
+            euclideanDigraph.addEdge(vertex1, vertex5);
+            euclideanDigraph.addEdge(vertex5, vertex6);
 
-            System.out.println(euclideanGraph);
-            euclideanGraph.show();
+            System.out.println(euclideanDigraph);
+            euclideanDigraph.show();
         }
 
     }

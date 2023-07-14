@@ -35,9 +35,6 @@ public class Digraph {
     }
 
     public void addEdge(int v, int w) {
-        // Exercise 5
-        if (hasEdge(v, w)) return;
-
         adj[v].add(w);
         ++E;
     }

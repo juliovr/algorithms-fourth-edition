@@ -1,13 +1,14 @@
 package algorithms.chapter4.section2;
 
 import edu.princeton.cs.algs4.Bag;
+import edu.princeton.cs.algs4.Queue;
 
 public class Degrees {
 
     private int[] indegree;
     private int[] outdegree;
-    private Bag<Integer> sources = new Bag<>();
-    private Bag<Integer> sinks = new Bag<>();
+    private Queue<Integer> sources = new Queue<>();
+    private Queue<Integer> sinks = new Queue<>();
     private boolean isMap = true;
 
     public Degrees(Digraph digraph) {
@@ -23,11 +24,11 @@ public class Degrees {
 
         for (int v = 0; v < digraph.V(); ++v) {
             if (indegree[v] == 0) {
-                sources.add(v);
+                sources.enqueue(v);
             }
 
             if (outdegree[v] == 0) {
-                sinks.add(v);
+                sinks.enqueue(v);
             }
 
             if (outdegree[v] != 1) {
@@ -44,7 +45,7 @@ public class Degrees {
         return outdegree[v];
     }
 
-    public Iterable<Integer> sources() {
+    public Queue<Integer> sources() {
         return sources;
     }
 

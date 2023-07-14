@@ -3,6 +3,7 @@ package algorithms.chapter4.section2;
 public class Topological {
 
     private Iterable<Integer> order;
+
     public Topological(Digraph digraph) {
         DirectedCycle directedCycle = new DirectedCycle(digraph);
         if (!directedCycle.hasCycle()) {
