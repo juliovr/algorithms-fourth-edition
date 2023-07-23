@@ -47,8 +47,8 @@ public class Exercise22_StockMarketTrading {
 
             System.out.println("Trading...");
 
-            Offer buy = buyers.findMax();
-            Offer sell = sellers.findMin();
+            Offer buy = buyers.max();
+            Offer sell = sellers.min();
             if (buy.price >= sell.price) {
                 System.out.println("Offers matched, making trade.");
                 System.out.println("Buy offer: { price = " + buy.price + ", quantity = " + buy.quantity + " }");

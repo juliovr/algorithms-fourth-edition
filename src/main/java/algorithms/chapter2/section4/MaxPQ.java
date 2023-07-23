@@ -27,7 +27,7 @@ public class MaxPQ<Key extends Comparable<Key>> {
         swim(n);
     }
 
-    public Key findMax() {
+    public Key max() {
         return pq[1];
     }
     

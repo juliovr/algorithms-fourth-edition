@@ -26,7 +26,7 @@ public class IndexMinPQ<Key extends Comparable<Key>> {
             }
         }
         
-        pq.delete(2);
+//        pq.delete(2);
 
         while (!pq.isEmpty()) {
             System.out.println(pq.minKey());
