@@ -48,6 +48,16 @@ public class EdgeWeightedGraph {
         ++E;
     }
 
+    public void deleteEdge(Edge e) {
+        int v = e.either();
+        int w = e.other(v);
+        Edge deletedV = adj[v].delete(e);
+        Edge deletedW = adj[w].delete(e);
+        if (deletedV != null && deletedW != null) {
+            --E;
+        }
+    }
+
     public Iterable<Edge> adj(int v) {
         return adj[v];
     }

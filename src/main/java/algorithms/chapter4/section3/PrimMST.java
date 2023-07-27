@@ -9,6 +9,7 @@ public class PrimMST {
     private double[] distTo;
     private boolean[] marked;
     private IndexMinPQ<Double> pq;
+    private double totalWeight;
 
     public PrimMST(EdgeWeightedGraph graph) {
         edgeTo = new Edge[graph.V()];
@@ -40,15 +41,34 @@ public class PrimMST {
                 }
             }
         }
+
+        if (edgeTo[v] != null) {
+            totalWeight += edgeTo[v].weight();
+        }
     }
 
     public Iterable<Edge> edges() {
         Queue<Edge> mst = new Queue<>();
         for (int v = 1; v < edgeTo.length; ++v) {
-            mst.enqueue(edgeTo[v]);
+            if (edgeTo[v] != null) {
+                mst.enqueue(edgeTo[v]);
+            }
         }
 
         return mst;
+    }
+
+//    public double weight() {
+//        double weight = 0.0;
+//        for (Edge e : edges()) {
+//            weight += e.weight();
+//        }
+//
+//        return weight;
+//    }
+
+    public double weight() {
+        return totalWeight;
     }
 
 }

@@ -42,6 +42,8 @@ public class CC {
 
             marked[vertex] = true;
             id[vertex] = count;
+
+            // Using adj as a temp stack to preserve the original order as in recursive calls
             Stack<Integer> adj = new Stack<>();
             for (int w : graph.adj(vertex)) {
                 if (!marked[w]) {
@@ -84,13 +86,13 @@ public class CC {
         graph.addEdge(5, 3);
 
         CC cc = new CC(graph);
-//        System.out.println(cc.count());
-//
-//        System.out.println(graph);
-//
-//        for (int a : cc.id) {
-//            System.out.print(a + " ");
-//        }
+        System.out.println(cc.count());
+
+        System.out.println(graph);
+
+        for (int a : cc.id) {
+            System.out.print(a + " ");
+        }
     }
 
 }

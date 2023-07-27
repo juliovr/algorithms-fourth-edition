@@ -64,4 +64,8 @@ public class EdgeWeightedCycle {
         return cycle;
     }
 
+    public int count() {
+        return cycle.size();
+    }
+
 }

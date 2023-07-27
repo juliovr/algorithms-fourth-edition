@@ -95,11 +95,33 @@ public class Bag<Item> implements Iterable<Item> {
      * @param  item the item to add to this bag
      */
     public void add(Item item) {
-        Node<Item> oldfirst = first;
+        Node<Item> oldFirst = first;
         first = new Node<Item>();
         first.item = item;
-        first.next = oldfirst;
+        first.next = oldFirst;
         n++;
+    }
+
+    public Item delete(Item item) {
+        if (isEmpty()) {
+            return null;
+        }
+
+        if (first.item.equals(item)) {
+            first = first.next;
+            --n;
+            return item;
+        }
+
+        for (Node node = first; node.next != null; node = node.next) {
+            if (node.next.item.equals(item)) {
+                node.next = node.next.next;
+                --n;
+                return item;
+            }
+        }
+
+        return null;
     }
 
 

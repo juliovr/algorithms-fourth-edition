@@ -8,6 +8,7 @@ public class LazyPrimMST {
     private boolean[] marked;
     private Queue<Edge> mst;
     private MinPQ<Edge> pq;
+    private double totalWeight;
 
     public LazyPrimMST(EdgeWeightedGraph graph) {
         pq = new MinPQ<>();
@@ -22,6 +23,7 @@ public class LazyPrimMST {
             if (marked[v] && marked[w]) continue;
 
             mst.enqueue(e);
+            totalWeight += e.weight();
 
             if (!marked[v]) visit(graph, v);
             if (!marked[w]) visit(graph, w);
@@ -40,6 +42,19 @@ public class LazyPrimMST {
 
     public Queue<Edge> edges() {
         return mst;
+    }
+
+//    public double weight() {
+//        double weight = 0.0;
+//        for (Edge e : edges()) {
+//            weight += e.weight();
+//        }
+//
+//        return weight;
+//    }
+
+    public double weight() {
+        return totalWeight;
     }
 
 }
