@@ -2,23 +2,26 @@ package algorithms.chapter4.section4;
 
 import edu.princeton.cs.algs4.Bag;
 import edu.princeton.cs.algs4.In;
+import edu.princeton.cs.algs4.Queue;
 
-public class EdgeWeightedDigraph {
+public class EdgeWeightedDigraphMatrix {
 
     private final int V;
     private int E;
-    private Bag<DirectedEdge>[] adj;
+    private double[][] adj;
 
-    public EdgeWeightedDigraph(int V) {
+    public EdgeWeightedDigraphMatrix(int V) {
         this.V = V;
         this.E = 0;
-        adj = new Bag[V];
+        this.adj = new double[V][V];
         for (int v = 0; v < V; ++v) {
-            adj[v] = new Bag<>();
+            for (int w = 0; w < V; ++w) {
+                adj[v][w] = Double.POSITIVE_INFINITY;
+            }
         }
     }
 
-    public EdgeWeightedDigraph(In in) {
+    public EdgeWeightedDigraphMatrix(In in) {
         this(in.readInt());
         int E = in.readInt();
         for (int i = 0; i < E; ++i) {
@@ -40,42 +43,31 @@ public class EdgeWeightedDigraph {
     }
 
     public void addEdge(DirectedEdge e) {
-        adj[e.from()].add(e);
+        adj[e.from()][e.to()] = e.weight();
         ++E;
     }
 
-    public void deleteEdge(DirectedEdge e) {
-        if (e.from() < adj.length) {
-            adj[e.from()].delete(e);
-            --E;
-        }
-    }
-
     public Iterable<DirectedEdge> adj(int v) {
-        return adj[v];
+        Queue<DirectedEdge> queue = new Queue<>();
+        for (int w = 0; w < adj[v].length; ++w) {
+            if (adj[v][w] != Double.POSITIVE_INFINITY) {
+                DirectedEdge e = new DirectedEdge(v, w, adj[v][w]);
+                queue.enqueue(e);
+            }
+        }
+
+        return queue;
     }
 
     public Iterable<DirectedEdge> edges() {
         Bag<DirectedEdge> bag = new Bag<>();
         for (int v = 0; v < V; ++v) {
-            for (DirectedEdge e : adj[v]) {
+            for (DirectedEdge e : adj(v)) {
                 bag.add(e);
             }
         }
 
         return bag;
-    }
-
-    public boolean containsEdge(int v, int w) {
-        boolean contains = false;
-        for (DirectedEdge e : adj[v]) {
-            if (e.to() == w) {
-                contains = true;
-                break;
-            }
-        }
-
-        return contains;
     }
 
     @Override

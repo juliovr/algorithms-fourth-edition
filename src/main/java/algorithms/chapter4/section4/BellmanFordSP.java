@@ -68,4 +68,8 @@ public class BellmanFordSP {
         return cycle;
     }
 
+    public double distTo(int v) {
+        return distTo[v];
+    }
+
 }

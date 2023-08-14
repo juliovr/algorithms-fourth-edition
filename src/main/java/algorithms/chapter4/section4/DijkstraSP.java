@@ -59,4 +59,8 @@ public class DijkstraSP {
         return path;
     }
 
+    public DirectedEdge[] edges() {
+        return edgeTo;
+    }
+
 }
