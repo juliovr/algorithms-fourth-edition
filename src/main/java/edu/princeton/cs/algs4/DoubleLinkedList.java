@@ -4,18 +4,24 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 
-public class LinkedList<I> implements Iterable<I> {
+public class DoubleLinkedList<I> implements Iterable<I> {
 
-    private Node<I> node;
+    private Node<I> first;
+    private Node<I> last;
     private int n;
     
     public static class Node<I> {
         public I value;
         public Node<I> next;
+        public Node<I> prev;
     }
 
     public Node<I> first() {
-        return node;
+        return first;
+    }
+
+    public Node<I> last() {
+        return last;
     }
     
     public boolean isEmpty() {
@@ -31,17 +37,19 @@ public class LinkedList<I> implements Iterable<I> {
         newNode.value = value;
         
         if (isEmpty()) {
-            this.node = newNode;
+            this.first = newNode;
+            this.last = newNode;
         } else {
-            newNode.next = this.node.next;
-            this.node.next = newNode;
+            newNode.prev = this.last;
+            this.last.next = newNode;
+            this.last = newNode;
         }
         n++;
     }
     
     @Override
     public Iterator<I> iterator() {
-        return new LinkedIterator(node);
+        return new LinkedIterator(first);
     }
     
     private class LinkedIterator implements Iterator<I> {
@@ -69,13 +77,20 @@ public class LinkedList<I> implements Iterable<I> {
     }
     
     public static void main(String[] args) {
-        LinkedList<String> list = new LinkedList<>();
+        DoubleLinkedList<String> list = new DoubleLinkedList<>();
         list.insert("a");
         list.insert("b");
         list.insert("c");
-        
+        list.insert("d");
+        list.insert("e");
+
         for (String value : list) {
             System.out.println(value);
+        }
+
+        System.out.println("prev:");
+        for (Node node = list.last; node != null; node = node.prev) {
+            System.out.println(node.value);
         }
     }
 
