@@ -44,4 +44,12 @@ public class StringSET {
         return sb.toString();
     }
 
+    public boolean containsPrefix(String prefix) {
+        for (String s : trie.keysWithPrefix(prefix)) {
+            return true;
+        }
+
+        return false;
+    }
+
 }

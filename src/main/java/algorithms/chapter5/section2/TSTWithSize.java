@@ -2,22 +2,24 @@ package algorithms.chapter5.section2;
 
 import edu.princeton.cs.algs4.Queue;
 
-public class TST<Value> {
+public class TSTWithSize<Value> {
 
-    private Node root;
+    private int size;
+    public NodeWithSize root;
 
-    private class Node {
+    public class NodeWithSize {
         char c;
-        Node left, mid, right;
+        NodeWithSize left, mid, right;
         Value val;
+        int size;
     }
 
-    public boolean contains(String key) {
-        return get(key) != null;
+    public int size() {
+        return size;
     }
 
     public Value get(String key) {
-        Node x = get(root, key, 0);
+        NodeWithSize x = get(root, key, 0);
         if (x == null) {
             return null;
         }
@@ -25,7 +27,7 @@ public class TST<Value> {
         return x.val;
     }
 
-    private Node get(Node x, String key, int d) {
+    private NodeWithSize get(NodeWithSize x, String key, int d) {
         if (x == null) {
             return null;
         }
@@ -44,25 +46,38 @@ public class TST<Value> {
     }
 
     public void put(String key, Value val) {
-        root = put(root, key, val, 0);
+        boolean isNewKey = get(key) == null;
+        if (isNewKey) {
+            size++;
+        }
+
+        root = put(root, key, val, 0, isNewKey);
     }
 
-    private Node put(Node x, String key, Value val, int d) {
+    private NodeWithSize put(NodeWithSize x, String key, Value val, int d, boolean isNewKey) {
         char c = key.charAt(d);
         if (x == null) {
-            x = new Node();
+            x = new NodeWithSize();
             x.c = c;
         }
 
         if (c < x.c) {
-            x.left = put(x.left, key, val, d);
+            x.left = put(x.left, key, val, d, isNewKey);
         } else if (c > x.c) {
-            x.right = put(x.right, key, val, d);
+            x.right = put(x.right, key, val, d, isNewKey);
         } else if (d < key.length() - 1) {
-            x.mid = put(x.mid, key, val, d+1);
+            x.mid = put(x.mid, key, val, d+1, isNewKey);
+
+            if (isNewKey) {
+                x.size++;
+            }
         } else {
             // d == key.length()-1 -> last character -> hit
             x.val = val;
+
+            if (isNewKey) {
+                x.size++;
+            }
         }
 
         return x;
@@ -76,16 +91,16 @@ public class TST<Value> {
 
     public Iterable<String> keysWithPrefix(String prefix) {
         Queue<String> queue = new Queue<>();
-        Node firstNodeMatchingPrefix = get(root, prefix, 0);
-        if (firstNodeMatchingPrefix == null) {
+        NodeWithSize firstNodeMatchingPrefixWithSize = get(root, prefix, 0);
+        if (firstNodeMatchingPrefixWithSize == null) {
             return queue;
         }
 
-        collect(firstNodeMatchingPrefix.mid, prefix, queue);
+        collect(firstNodeMatchingPrefixWithSize.mid, prefix, queue);
         return queue;
     }
 
-    private void collect(Node x, String prefix, Queue<String> queue) {
+    private void collect(NodeWithSize x, String prefix, Queue<String> queue) {
         if (x == null) {
             return;
         }
@@ -106,7 +121,7 @@ public class TST<Value> {
         return queue;
     }
 
-    private void collect(Node x, String prefix, String pattern, Queue<String> queue) {
+    private void collect(NodeWithSize x, String prefix, String pattern, Queue<String> queue) {
         int d = prefix.length();
         if (x == null) {
             return;
@@ -139,7 +154,7 @@ public class TST<Value> {
         return s.substring(0, length);
     }
 
-    private int search(Node x, String s, int d, int length) {
+    private int search(NodeWithSize x, String s, int d, int length) {
         if (x == null) {
             return length;
         }

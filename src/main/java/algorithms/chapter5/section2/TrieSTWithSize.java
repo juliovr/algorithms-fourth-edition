@@ -2,18 +2,23 @@ package algorithms.chapter5.section2;
 
 import edu.princeton.cs.algs4.Queue;
 
-public class TrieST<Value> {
+public class TrieSTWithSize<Value> {
 
-    private final static int R = 256;
-    private Node root = new Node();
+    public final static int R = 256;
+    public NodeWithSize root = new NodeWithSize();
 
-    private static class Node {
-        private Object val;
-        private Node[] next = new Node[R];
+    public static class NodeWithSize {
+        public Object val;
+        public NodeWithSize[] next = new NodeWithSize[R];
+        public int size;
+    }
+
+    public int size() {
+        return root.size;
     }
 
     public Value get(String key) {
-        Node x = get(root, key, 0);
+        NodeWithSize x = get(root, key, 0);
         if (x == null) {
             return null;
         }
@@ -21,7 +26,7 @@ public class TrieST<Value> {
         return (Value) x.val;
     }
 
-    private Node get(Node x, String key, int d) {
+    private NodeWithSize get(NodeWithSize x, String key, int d) {
         if (x == null) {
             return null;
         }
@@ -35,12 +40,17 @@ public class TrieST<Value> {
     }
 
     public void put(String key, Value val) {
-        root = put(root, key, val, 0);
+        boolean isNewKey = get(key) == null;
+        root = put(root, key, val, 0, isNewKey);
     }
 
-    private Node put(Node x, String key, Value val, int d) {
+    private NodeWithSize put(NodeWithSize x, String key, Value val, int d, boolean isNewKey) {
         if (x == null) {
-            x = new Node();
+            x = new NodeWithSize();
+        }
+
+        if (isNewKey) {
+            x.size++;
         }
 
         if (d == key.length()) {
@@ -49,7 +59,7 @@ public class TrieST<Value> {
         }
 
         char c = key.charAt(d);
-        x.next[c] = put(x.next[c], key, val, d+1);
+        x.next[c] = put(x.next[c], key, val, d+1, isNewKey);
         return x;
     }
 
@@ -59,12 +69,12 @@ public class TrieST<Value> {
 
     public Iterable<String> keysWithPrefix(String prefix) {
         Queue<String> queue = new Queue<>();
-        Node firstNodeMatchingPrefix = get(root, prefix, 0);
-        collect(firstNodeMatchingPrefix, prefix, queue);
+        NodeWithSize firstNodeMatchingPrefixWithSize = get(root, prefix, 0);
+        collect(firstNodeMatchingPrefixWithSize, prefix, queue);
         return queue;
     }
 
-    private void collect(Node x, String prefix, Queue<String> queue) {
+    private void collect(NodeWithSize x, String prefix, Queue<String> queue) {
         if (x == null) {
             return;
         }
@@ -84,7 +94,7 @@ public class TrieST<Value> {
         return queue;
     }
 
-    private void collect(Node x, String prefix, String pattern, Queue<String> queue) {
+    private void collect(NodeWithSize x, String prefix, String pattern, Queue<String> queue) {
         int d = prefix.length();
         if (x == null) {
             return;
@@ -111,7 +121,7 @@ public class TrieST<Value> {
         return s.substring(0, length);
     }
 
-    private int search(Node x, String s, int d, int length) {
+    private int search(NodeWithSize x, String s, int d, int length) {
         if (x == null) {
             return length;
         }
@@ -132,10 +142,12 @@ public class TrieST<Value> {
         root = delete(root, key, 0);
     }
 
-    private Node delete(Node x, String key, int d) {
+    private NodeWithSize delete(NodeWithSize x, String key, int d) {
         if (x == null) {
             return null;
         }
+
+        x.size--;
 
         if (d == key.length()) {
             x.val = null;
@@ -161,7 +173,7 @@ public class TrieST<Value> {
         return floor(root, key, -1, "", null);
     }
 
-    private String floor(Node x, String key, int d, String prefix, String lastKeyFound) {
+    private String floor(NodeWithSize x, String key, int d, String prefix, String lastKeyFound) {
         if (x == null) {
             return null;
         }
@@ -199,7 +211,7 @@ public class TrieST<Value> {
         return ceiling(root, key, -1, "", null, new CeilingState());
     }
 
-    private String ceiling(Node x, String key, int d, String prefix, String lastKeyFound, CeilingState state) {
+    private String ceiling(NodeWithSize x, String key, int d, String prefix, String lastKeyFound, CeilingState state) {
         if (x == null) {
             return null;
         }
@@ -234,7 +246,7 @@ public class TrieST<Value> {
         return select(root, rank, "", new SelectState());
     }
 
-    private String select(Node x, int rank, String prefix, SelectState state) {
+    private String select(NodeWithSize x, int rank, String prefix, SelectState state) {
         if (x == null) {
             return null;
         }
@@ -263,7 +275,7 @@ public class TrieST<Value> {
         return rank(root, key, "", new RankStatus());
     }
 
-    private int rank(Node x, String key, String prefix, RankStatus status) {
+    private int rank(NodeWithSize x, String key, String prefix, RankStatus status) {
         if (x == null) {
             return status.rank;
         }
