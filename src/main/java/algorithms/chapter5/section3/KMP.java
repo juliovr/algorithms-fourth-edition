@@ -3,7 +3,7 @@ package algorithms.chapter5.section3;
 import java.util.ArrayList;
 import java.util.List;
 
-public class KMP {
+public class KMP implements SubstringSearch {
 
     private String pat;
     private int[][] dfa;
@@ -22,6 +22,10 @@ public class KMP {
             dfa[pat.charAt(j)][j] = j+1;    // set match case
             x = dfa[pat.charAt(j)][x];      // Update restart state
         }
+    }
+
+    public int[][] dfa() {
+        return dfa;
     }
 
     public int search(String txt) {
@@ -59,6 +63,11 @@ public class KMP {
     public int count(String txt) {
         List<Integer> indices = getMatchesIndices(txt);
         return indices.size();
+    }
+
+    @Override
+    public Iterable<Integer> findAll(String txt) {
+        return getMatchesIndices(txt);
     }
 
     private List<Integer> getMatchesIndices(String txt) {

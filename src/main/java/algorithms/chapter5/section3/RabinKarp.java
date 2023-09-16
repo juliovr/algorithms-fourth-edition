@@ -3,7 +3,7 @@ package algorithms.chapter5.section3;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RabinKarp {
+public class RabinKarp implements SubstringSearch {
 
     private String pat;
     private long patHash;
@@ -84,6 +84,11 @@ public class RabinKarp {
     public int count(String txt) {
         List<Integer> indices = getMatchesIndices(txt);
         return indices.size();
+    }
+
+    @Override
+    public Iterable<Integer> findAll(String txt) {
+        return getMatchesIndices(txt);
     }
 
     private List<Integer> getMatchesIndices(String txt) {

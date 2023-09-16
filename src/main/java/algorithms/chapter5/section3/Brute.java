@@ -3,7 +3,7 @@ package algorithms.chapter5.section3;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Brute {
+public class Brute implements SubstringSearch {
 
     private String pat;
 
@@ -52,6 +52,11 @@ public class Brute {
     public int count(String txt) {
         List<Integer> indices = getMatchesIndices(txt);
         return indices.size();
+    }
+
+    @Override
+    public Iterable<Integer> findAll(String txt) {
+        return getMatchesIndices(txt);
     }
 
     private List<Integer> getMatchesIndices(String txt) {

@@ -3,7 +3,7 @@ package algorithms.chapter5.section3;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BoyerMoore {
+public class BoyerMoore implements SubstringSearch {
 
     private int[] right;
     private String pat;
@@ -68,6 +68,11 @@ public class BoyerMoore {
     public int count(String txt) {
         List<Integer> indices = getMatchesIndices(txt);
         return indices.size();
+    }
+
+    @Override
+    public Iterable<Integer> findAll(String txt) {
+        return getMatchesIndices(txt);
     }
 
     private List<Integer> getMatchesIndices(String txt) {
