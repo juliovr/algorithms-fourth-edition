@@ -17,6 +17,7 @@ public class DirectedDFS {
 
     public DirectedDFS(Digraph digraph, Iterable<Integer> sources) {
         marked = new boolean[digraph.V()];
+        edgeTo = new int[digraph.V()];
         for (int s : sources) {
             if (!marked[s]) {
                 dfs(digraph, s);
