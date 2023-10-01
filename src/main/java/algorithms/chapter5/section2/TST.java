@@ -134,9 +134,25 @@ public class TST<Value> {
         }
     }
 
-    public String longestPrefixOf(String s) {
-        int length = search(root, s, 0, 0);
-        return s.substring(0, length);
+    public String longestPrefixOf(String query) {
+        if (query == null) {
+            throw new IllegalArgumentException("calls longestPrefixOf() with null argument");
+        }
+        if (query.length() == 0) return null;
+        int length = 0;
+        Node x = root;
+        int i = 0;
+        while (x != null && i < query.length()) {
+            char c = query.charAt(i);
+            if      (c < x.c) x = x.left;
+            else if (c > x.c) x = x.right;
+            else {
+                i++;
+                if (x.val != null) length = i;
+                x = x.mid;
+            }
+        }
+        return query.substring(0, length);
     }
 
     private int search(Node x, String s, int d, int length) {
