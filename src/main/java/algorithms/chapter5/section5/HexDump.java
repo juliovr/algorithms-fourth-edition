@@ -23,11 +23,11 @@ public class HexDump {
             if (bytesCount == 0) {
                 // Don't print anything in the first pass
             } else if (bytesCount % bytesPerLine == 0) {
-                // Print ascii representation of the hex values
-                System.out.print("\t");
-                for (int i = 0; i < charsPerLine.length; ++i) {
-                    System.out.printf("%c ", charsPerLine[i]);
-                }
+//                // Print ascii representation of the hex values
+//                System.out.print("\t\t");
+//                for (int i = 0; i < charsPerLine.length; ++i) {
+//                    System.out.printf("%c ", charsPerLine[i]);
+//                }
 
                 System.out.println();
             } else {
@@ -36,10 +36,18 @@ public class HexDump {
 
             char c = BinaryStdIn.readChar();
             System.out.printf("%02x", (c & 0xFF));
-            charsPerLine[charIndex] = c;
+            charsPerLine[charIndex++] = c;
+            if (charIndex >= charsPerLine.length) {
+                charIndex = 0;
+            }
         }
 
         if (bytesPerLine != 0) {
+//            System.out.print("\t\t");
+//            for (int i = 0; i < charsPerLine.length; ++i) {
+//                System.out.printf("%c ", charsPerLine[i]);
+//            }
+
             System.out.println();
         }
 
