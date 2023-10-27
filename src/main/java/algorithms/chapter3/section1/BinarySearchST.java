@@ -62,6 +62,14 @@ public class BinarySearchST<Key extends Comparable<Key>, Value> {
         }
     }
 
+    public Key key(int i) {
+        return keys[i];
+    }
+
+    public Value value(int i) {
+        return values[i];
+    }
+
     public boolean contains(Key key) {
         Value value = get(key);
         if (value != null) {
@@ -173,6 +181,34 @@ public class BinarySearchST<Key extends Comparable<Key>, Value> {
         } else {
             return keys[i - 1];
         }
+    }
+
+    public Value floorValue(Key key) {
+        Value value = get(key);
+        if (value != null) {
+            return value;
+        }
+
+        int i = rank(key);
+        if (i == 0) {
+            return values[0];
+        } else {
+            return values[i - 1];
+        }
+    }
+
+    public Key ceiling(Key key) {
+        if (get(key) != null) {
+            return key;
+        }
+
+        int i = rank(key);
+        return keys[i];
+    }
+
+    public Value ceilingValue(Key key) {
+        int i = rank(key);
+        return values[i];
     }
 
 }
